@@ -1,6 +1,6 @@
 #include <iostream>     // cout
 #include <vector>       // vector
-#include <algorithm>    // sort, std::ranges::count only works if compile with --std=c++20
+#include <algorithm>    // sort
 #include <sstream>      // stream
 #include <numeric>      // accumulate
 #include <limits>       // numeric_limits
@@ -64,12 +64,10 @@ bool    parseDouble(const std::string &user_input, std::vector<double> &distance
     static const std::regex number_pattern(R"(^-?(0|[1-9]\d*)(\.\d+)?$)");
 
     while (input_stream >> num_str) {
-        if (std::ranges::count(num_str, '.') > 1 
-            || num_str[0] == '.'
-            || !std::regex_match(num_str, number_pattern)) 
+        if (!std::regex_match(num_str, number_pattern)) 
             return false;
         auto num = safe_stod(num_str);
-        if (!num || *num < 0) return false;
+        if (!num) return false;
         distances.push_back(*num);
     }
     if (distances.empty()) return false;
