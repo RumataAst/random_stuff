@@ -104,7 +104,6 @@ void    guessing_game(std::string &random_seq) {
         // At the start of guessing bulls and cows always 0
         bulls = 0;
         cows = 0;
-        // cleaning std::cin
         std::cout << "Give me your sequence of numbers: ";
         user_input = get_input();
         if (user_input.empty()) {
@@ -134,6 +133,7 @@ void    guessing_game(std::string &random_seq) {
             }
             if (answer == "y" || answer == "yes" ) {
                 generate_random_sequence(random_seq);
+                // cleaning std::cin otherwise it has \n and passes it immediately to user_input
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                 continue;
